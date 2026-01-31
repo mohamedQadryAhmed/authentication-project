@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const user = { name: 'Mohamed' };
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <nav className='bg-white shadow-sm'>
@@ -30,7 +29,7 @@ const Navbar = () => {
           ) : (
             <>
               <div className='w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-serif'>
-                {user.name.charAt(0).toUpperCase()}
+                {user?.name?.charAt(0).toUpperCase()}
               </div>
               <Link
                 to='/dashboard'
@@ -39,7 +38,7 @@ const Navbar = () => {
                 Dashboard
               </Link>
               <button
-                onClick={() => setIsAuthenticated(false)}
+                onClick={logout}
                 className='bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition'
               >
                 Logout
